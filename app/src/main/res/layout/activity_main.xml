@@ -16,6 +16,8 @@
         android:id="@+id/lstCategories" />
 
 
-    <include layout="@layout/footer_menu" />
+    <include
+        layout="@layout/footer_menu"
+        android:id="@+id/footerMenu"/>
 
 </LinearLayout>

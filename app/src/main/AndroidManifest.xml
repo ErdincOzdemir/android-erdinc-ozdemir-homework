@@ -23,8 +23,12 @@
             android:label="@string/title_activity_news_by_category" >
         </activity>
         <activity
-            android:name=".NewsDetailActivity"
+            android:name=".activities.NewsDetailActivity"
             android:label="@string/title_activity_news_detail" >
+        </activity>
+        <activity
+            android:name=".activities.FavoriteNewsActivity"
+            android:label="@string/title_activity_favorite_news" >
         </activity>
     </application>
 

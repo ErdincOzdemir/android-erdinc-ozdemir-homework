@@ -9,7 +9,6 @@ import android.widget.ListView;
 
 import java.util.List;
 
-import it2015.sabanciuniv.edu.erdincozdemir.NewsDetailActivity;
 import it2015.sabanciuniv.edu.erdincozdemir.R;
 import it2015.sabanciuniv.edu.erdincozdemir.activities.base.BaseActivity;
 import it2015.sabanciuniv.edu.erdincozdemir.objects.News;
@@ -23,8 +22,8 @@ public class NewsByCategoryActivity extends BaseActivity implements GetNewsByCat
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_by_category);
+        super.onCreate(savedInstanceState);
 
         lstNewsByCategory = (ListView) findViewById(R.id.lstNewsByCategory);
 

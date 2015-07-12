@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import java.util.List;
@@ -21,8 +23,8 @@ public class MainActivity extends BaseActivity implements GetNewsCategoriesTask.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        super.onCreate(savedInstanceState);
 
         lstCategories = (ListView) findViewById(R.id.lstCategories);
 
