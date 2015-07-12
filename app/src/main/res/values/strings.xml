@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">ErdincOzdemir</string>
+    <string name="app_name">News</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    
+    <string name="menu_home_button_text">Home</string>
+    <string name="menu_favorites_button_text">Favorites</string>
 </resources>
