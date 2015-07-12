@@ -3,7 +3,13 @@ package it2015.sabanciuniv.edu.erdincozdemir.tasks;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import it2015.sabanciuniv.edu.erdincozdemir.objects.NewsCategory;
@@ -49,6 +55,13 @@ public class GetNewsCategories extends BaseGetDataTask implements GetTokenTask.G
 
     @Override
     protected String doInBackground(String... params) {
+        params[0] = params[0] + sharedPreferencesHelper.getToken();
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return super.doInBackground(params);
     }
 
@@ -60,11 +73,39 @@ public class GetNewsCategories extends BaseGetDataTask implements GetTokenTask.G
             dialog.dismiss();
         }
 
+        ServiceResponseObject<NewsCategory> newsCategoryServiceResponseObject = new ServiceResponseObject<>();
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            newsCategoryServiceResponseObject.setServiceMessageCode(jsonObject.getInt("serviceMessageCode"));
+            newsCategoryServiceResponseObject.setServiceMessageText(jsonObject.getString("serviceMessageText"));
+            JSONArray arr = jsonObject.getJSONArray("items");
+            List<NewsCategory> newsCategories = new ArrayList<>();
+            for (int i = 0; i < arr.length(); i++) {
+                JSONObject obj = arr.getJSONObject(i);
+                NewsCategory category = new NewsCategory(obj.getInt("id"), obj.getString("name"));
+                newsCategories.add(category);
+            }
+            newsCategoryServiceResponseObject.setResponseItems(newsCategories);
+            if(newsCategoryServiceResponseObject.getServiceMessageCode() == 1) {
+                this.listener.newsCategoriesFetched(newsCategoryServiceResponseObject.getResponseItems());
+            } else {
+                GetTokenTask task = new GetTokenTask();
+                task.setListener(this);
+                task.execute(Config.loginUrl);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @Override
     public void tokenFetched(String token) {
         sharedPreferencesHelper.setToken(token);
+        GetNewsCategories getNewsCategories = new GetNewsCategories(this.context);
+        getNewsCategories.setListener(this.listener);
+        getNewsCategories.execute(Config.getNewsCategoriesUrl);
     }
 
     public void setListener(GetNewsCategoriesListener listener) {

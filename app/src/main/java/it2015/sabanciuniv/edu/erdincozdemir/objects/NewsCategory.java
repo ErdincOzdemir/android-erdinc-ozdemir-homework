@@ -1,9 +1,11 @@
 package it2015.sabanciuniv.edu.erdincozdemir.objects;
 
+import java.io.Serializable;
+
 /**
  * Created by Erdinc on 12.07.2015.
  */
-public class NewsCategory {
+public class NewsCategory implements Serializable {
 
     private int id;
     private String name;
@@ -27,5 +29,10 @@ public class NewsCategory {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

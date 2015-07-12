@@ -1,6 +1,7 @@
 package it2015.sabanciuniv.edu.erdincozdemir.tasks.base;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -15,6 +16,7 @@ public class BaseGetDataTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
+        Log.i("DEVELOPER", params[0]);
         HttpURLConnection conn = null;
         StringBuilder builder = null;
         try {
