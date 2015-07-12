@@ -70,15 +70,15 @@ public class GetNewsCategoriesTask extends BaseGetDataTask implements GetTokenTa
             JSONObject jsonObject = new JSONObject(s);
             newsCategoryServiceResponseObject.setServiceMessageCode(jsonObject.getInt("serviceMessageCode"));
             newsCategoryServiceResponseObject.setServiceMessageText(jsonObject.getString("serviceMessageText"));
-            JSONArray arr = jsonObject.getJSONArray("items");
-            List<NewsCategory> newsCategories = new ArrayList<>();
-            for (int i = 0; i < arr.length(); i++) {
-                JSONObject obj = arr.getJSONObject(i);
-                NewsCategory category = new NewsCategory(obj.getInt("id"), obj.getString("name"));
-                newsCategories.add(category);
-            }
-            newsCategoryServiceResponseObject.setResponseItems(newsCategories);
             if(newsCategoryServiceResponseObject.getServiceMessageCode() == 1) {
+                JSONArray arr = jsonObject.getJSONArray("items");
+                List<NewsCategory> newsCategories = new ArrayList<>();
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject obj = arr.getJSONObject(i);
+                    NewsCategory category = new NewsCategory(obj.getInt("id"), obj.getString("name"));
+                    newsCategories.add(category);
+                }
+                newsCategoryServiceResponseObject.setResponseItems(newsCategories);
                 this.listener.newsCategoriesFetched(newsCategoryServiceResponseObject.getResponseItems());
             } else {
                 GetTokenTask task = new GetTokenTask();

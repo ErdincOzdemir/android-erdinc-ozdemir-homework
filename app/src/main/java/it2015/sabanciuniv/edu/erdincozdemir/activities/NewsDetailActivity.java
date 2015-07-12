@@ -1,7 +1,11 @@
 package it2015.sabanciuniv.edu.erdincozdemir.activities;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -11,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import it2015.sabanciuniv.edu.erdincozdemir.R;
@@ -23,6 +29,7 @@ import it2015.sabanciuniv.edu.erdincozdemir.tasks.GetCommentsTask;
 import it2015.sabanciuniv.edu.erdincozdemir.tasks.GetImageTask;
 import it2015.sabanciuniv.edu.erdincozdemir.tasks.PostCommentTask;
 import it2015.sabanciuniv.edu.erdincozdemir.utils.Config;
+import it2015.sabanciuniv.edu.erdincozdemir.utils.FavoriteNewsDbHelper;
 
 public class NewsDetailActivity extends BaseActivity implements GetImageTask.GetImageTaskListener, GetCommentsTask.GetCommentsTaskListener, View.OnClickListener, PostCommentTask.PostCommentTaskListener {
 
@@ -31,6 +38,7 @@ public class NewsDetailActivity extends BaseActivity implements GetImageTask.Get
     private ListView lstNewsComments;
     private Button btnPostComment, btnAddToFavorites;
     private News news;
+    private boolean favorited = false;
 
 
     @Override
@@ -63,8 +71,38 @@ public class NewsDetailActivity extends BaseActivity implements GetImageTask.Get
             getCommentsTask.setListener(this);
             getCommentsTask.execute(Config.getCommentsByNewsIdUrl);
 
+            isFavorited();
         }
 
+    }
+
+    private void isFavorited() {
+
+        FavoriteNewsDbHelper dbHelper = new FavoriteNewsDbHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.query(FavoriteNewsDbHelper.TABLE_FAVORITE_NEWS, new String[]{FavoriteNewsDbHelper.COLUMN_ID}, null, null, null, null, null, null);
+
+        this.favorited = cursor.getCount() > 0;
+
+        if(this.favorited) {
+            btnAddToFavorites.setText(getString(R.string.remove_from_favorites_text));
+        }
+
+
+        /*try {
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                Note n = new Note();
+                n.setNoteDate(cursor.getString(2));
+                n.setTitle(cursor.getString(1));
+                notes.add(n);
+                cursor.moveToNext();
+                Log.i("DEV", "-------------------");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
     }
 
     @Override
@@ -88,7 +126,28 @@ public class NewsDetailActivity extends BaseActivity implements GetImageTask.Get
             postCommentFragment.setListener(this);
             postCommentFragment.show(getFragmentManager(), null);
         } else if(v.getId() == R.id.btnAddToFavorites) {
-
+            FavoriteNewsDbHelper dbHelper = new FavoriteNewsDbHelper(this);
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
+            if(!this.favorited) {
+                ContentValues favoriteNews = new ContentValues();
+                favoriteNews.put(FavoriteNewsDbHelper.COLUMN_ID, this.news.getId());
+                favoriteNews.put(FavoriteNewsDbHelper.COLUMN_TITLE, this.news.getTitle());
+                favoriteNews.put(FavoriteNewsDbHelper.COLUMN_TEXT, this.news.getText());
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                String date = df.format(this.news.getDate().getTime());
+                favoriteNews.put(FavoriteNewsDbHelper.COLUMN_DATE, date);
+                favoriteNews.put(FavoriteNewsDbHelper.COLUMN_IMAGE, this.news.getImage());
+                favoriteNews.put(FavoriteNewsDbHelper.COLUMN_CATEGORY_NAME, this.news.getCategoryName());
+                db.insert(FavoriteNewsDbHelper.TABLE_FAVORITE_NEWS, null, favoriteNews);
+                btnAddToFavorites.setText(getString(R.string.remove_from_favorites_text));
+                this.favorited = true;
+                Toast.makeText(getApplicationContext(), getString(R.string.add_to_favorites_result_message), Toast.LENGTH_SHORT).show();
+            } else {
+                db.delete(FavoriteNewsDbHelper.TABLE_FAVORITE_NEWS, FavoriteNewsDbHelper.COLUMN_ID + "=" + this.news.getId(), null);
+                btnAddToFavorites.setText(getString(R.string.add_to_favorites_text));
+                this.favorited = false;
+                Toast.makeText(getApplicationContext(), getString(R.string.remove_from_favorites_result_message), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -101,6 +160,6 @@ public class NewsDetailActivity extends BaseActivity implements GetImageTask.Get
 
     @Override
     public void commentPostFailed() {
-        Toast.makeText(getApplicationContext(), getString(R.string.app_name), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), getString(R.string.post_comment_error), Toast.LENGTH_SHORT).show();
     }
 }

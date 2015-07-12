@@ -11,6 +11,7 @@
 
     <string name="post_comment_text">Post Comment</string>
     <string name="add_to_favorites_text">Add to Favorites</string>
+    <string name="remove_from_favorites_text">Remove from Favorites</string>
 
     <string name="comment_name_hint">Your name</string>
     <string name="comment_last_name_hint">Your last name</string>
@@ -20,4 +21,6 @@
     <string name="post_comment_error">Failed to post comment!</string>
     <string name="comments">Comments</string>
     <string name="title_activity_favorite_news">FavoriteNewsActivity</string>
+    <string name="add_to_favorites_result_message">This news added to favorites successfully!</string>
+    <string name="remove_from_favorites_result_message">This news removed from favorites successfully!</string>
 </resources>
