@@ -7,4 +7,8 @@
     <string name="menu_home_button_text">Home</string>
     <string name="menu_favorites_button_text">Favorites</string>
     <string name="title_activity_news_by_category">NewsByCategoryActivity</string>
+    <string name="title_activity_news_detail">NewsDetailActivity</string>
+
+    <string name="post_comment_text">Post Comment</string>
+    <string name="add_to_favorites_text">Add to Favorites</string>
 </resources>

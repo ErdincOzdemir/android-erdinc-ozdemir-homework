@@ -2,8 +2,6 @@ package it2015.sabanciuniv.edu.erdincozdemir.tasks;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,7 +19,7 @@ import it2015.sabanciuniv.edu.erdincozdemir.utils.SharedPreferencesHelper;
 /**
  * Created by Erdinc on 12.07.2015.
  */
-public class GetNewsCategories extends BaseGetDataTask implements GetTokenTask.GetTokenListener {
+public class GetNewsCategoriesTask extends BaseGetDataTask implements GetTokenTask.GetTokenListener {
 
     public interface GetNewsCategoriesListener {
         void newsCategoriesFetched(List<NewsCategory> newsCategories);
@@ -32,7 +30,7 @@ public class GetNewsCategories extends BaseGetDataTask implements GetTokenTask.G
     private SharedPreferencesHelper sharedPreferencesHelper;
     private GetNewsCategoriesListener listener;
 
-    public GetNewsCategories(Context context) {
+    public GetNewsCategoriesTask(Context context) {
         this.context = context;
     }
 
@@ -56,12 +54,6 @@ public class GetNewsCategories extends BaseGetDataTask implements GetTokenTask.G
     @Override
     protected String doInBackground(String... params) {
         params[0] = params[0] + sharedPreferencesHelper.getToken();
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return super.doInBackground(params);
     }
 
@@ -103,7 +95,7 @@ public class GetNewsCategories extends BaseGetDataTask implements GetTokenTask.G
     @Override
     public void tokenFetched(String token) {
         sharedPreferencesHelper.setToken(token);
-        GetNewsCategories getNewsCategories = new GetNewsCategories(this.context);
+        GetNewsCategoriesTask getNewsCategories = new GetNewsCategoriesTask(this.context);
         getNewsCategories.setListener(this.listener);
         getNewsCategories.execute(Config.getNewsCategoriesUrl);
     }

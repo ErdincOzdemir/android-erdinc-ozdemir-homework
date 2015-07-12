@@ -17,6 +17,13 @@ public class BaseGetDataTask extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         Log.i("DEVELOPER", params[0]);
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         HttpURLConnection conn = null;
         StringBuilder builder = null;
         try {
