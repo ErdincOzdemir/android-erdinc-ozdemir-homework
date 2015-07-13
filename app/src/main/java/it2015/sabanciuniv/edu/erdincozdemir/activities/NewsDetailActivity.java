@@ -88,21 +88,6 @@ public class NewsDetailActivity extends BaseActivity implements GetImageTask.Get
         if(this.favorited) {
             btnAddToFavorites.setText(getString(R.string.remove_from_favorites_text));
         }
-
-
-        /*try {
-            cursor.moveToFirst();
-            while(!cursor.isAfterLast()){
-                Note n = new Note();
-                n.setNoteDate(cursor.getString(2));
-                n.setTitle(cursor.getString(1));
-                notes.add(n);
-                cursor.moveToNext();
-                Log.i("DEV", "-------------------");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
     }
 
     @Override
@@ -118,6 +103,7 @@ public class NewsDetailActivity extends BaseActivity implements GetImageTask.Get
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         if(v.getId() == R.id.btnPostComment) {
             PostCommentFragment postCommentFragment = new PostCommentFragment();
             Bundle bundle = new Bundle();

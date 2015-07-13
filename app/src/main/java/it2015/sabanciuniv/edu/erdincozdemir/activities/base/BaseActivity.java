@@ -44,6 +44,7 @@ public class BaseActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         if(v.getId() == R.id.btnFooterMenuFavorites) {
             Intent intent = new Intent(this, FavoriteNewsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
 
         } else if(v.getId() == R.id.btnFooterMenuHome) {
