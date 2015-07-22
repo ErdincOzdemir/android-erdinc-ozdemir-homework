@@ -7,10 +7,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtCommentNameLastName"
-        android:textColor="@android:color/holo_red_dark"/>
+        android:textColor="@android:color/holo_blue_dark"
+        android:padding="@dimen/comment_line_header_padding"
+        android:textStyle="bold|italic"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/comment_line_comment_padding"
         android:id="@+id/txtComment"/>
 </LinearLayout>

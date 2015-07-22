@@ -2,4 +2,14 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">0dp</dimen>
     <dimen name="activity_vertical_margin">0dp</dimen>
+
+    <dimen name="news_detail_header_margin">10dp</dimen>
+    <dimen name="news_detail_header_text_size">15dp</dimen>
+    <dimen name="news_detail_text_padding_top_bottom">10dp</dimen>
+    <dimen name="news_detail_text_padding_left_right">10dp</dimen>
+    <dimen name="news_detail_text_size">17dp</dimen>
+    <dimen name="news_detail_comments_header_text_size">16dp</dimen>
+    <dimen name="news_detail_comments_header_padding">10dp</dimen>
+    <dimen name="comment_line_header_padding">10dp</dimen>
+    <dimen name="comment_line_comment_padding">10dp</dimen>
 </resources>

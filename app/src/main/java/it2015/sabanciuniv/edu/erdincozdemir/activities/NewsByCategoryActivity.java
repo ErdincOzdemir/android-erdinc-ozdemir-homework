@@ -32,6 +32,8 @@ public class NewsByCategoryActivity extends BaseActivity implements GetNewsByCat
             GetNewsByCategoryTask getNewsByCategory = new GetNewsByCategoryTask(this, selectedCategory);
             getNewsByCategory.setListener(this);
             getNewsByCategory.execute(Config.getAllNewsByCategoryUrl);
+
+            setTitle(selectedCategory.getName());
         }
 
     }

@@ -29,6 +29,16 @@ public class PostCommentFragment extends DialogFragment implements View.OnClickL
     private News news;
     private PostCommentTask.PostCommentTaskListener listener;
 
+    public static PostCommentFragment newInstance(News news) {
+
+        Bundle args = new Bundle();
+        args.putSerializable("news", news);
+
+        PostCommentFragment fragment = new PostCommentFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_post_comment, container);
