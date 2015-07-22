@@ -52,5 +52,7 @@ public class BaseActivity extends Activity implements View.OnClickListener {
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
+        if(!(this instanceof MainActivity) && !(this instanceof FavoriteNewsActivity))
+            finish();
     }
 }

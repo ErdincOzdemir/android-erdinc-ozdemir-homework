@@ -14,6 +14,9 @@
         android:id="@+id/txtCommentLastName"
         android:hint="@string/comment_last_name_hint"/>
     <EditText
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:minLines="6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtCommentText"

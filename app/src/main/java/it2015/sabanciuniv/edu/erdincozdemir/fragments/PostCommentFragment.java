@@ -44,6 +44,7 @@ public class PostCommentFragment extends DialogFragment implements View.OnClickL
         View view = inflater.inflate(R.layout.fragment_post_comment, container);
 
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getDialog().setCanceledOnTouchOutside(false);
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -66,6 +67,8 @@ public class PostCommentFragment extends DialogFragment implements View.OnClickL
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.btnPostComment) {
+            if(!validate())
+                return;
             Comment comment = new Comment(this.news.getId(), txtCommentName.getText().toString(), txtCommentLastName.getText().toString(), txtCommentText.getText().toString());
             PostCommentTask postCommentTask = new PostCommentTask(getActivity(), comment);
             postCommentTask.setListener(this);
@@ -83,7 +86,7 @@ public class PostCommentFragment extends DialogFragment implements View.OnClickL
         Display display = window.getWindowManager().getDefaultDisplay();
         display.getSize(size);
         int width = size.x;
-        window.setLayout((int) (width * 0.8f), WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setLayout((int) (width * 0.9f), WindowManager.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
     }
 
@@ -101,5 +104,21 @@ public class PostCommentFragment extends DialogFragment implements View.OnClickL
     public void commentPostFailed() {
         this.listener.commentPostFailed();
         dismiss();
+    }
+
+    private boolean validate() {
+        if(txtCommentName.getText().toString().equals("")) {
+            txtCommentName.setError(getString(R.string.required_value_error));
+            return false;
+        }
+        if(txtCommentLastName.getText().toString().equals("")) {
+            txtCommentLastName.setError(getString(R.string.required_value_error));
+            return false;
+        }
+        if(txtCommentText.getText().toString().equals("")) {
+            txtCommentText.setError(getString(R.string.required_value_error));
+            return false;
+        }
+        return true;
     }
 }

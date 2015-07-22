@@ -4,11 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -58,7 +63,7 @@ public class FavoriteNewsActivity extends BaseActivity implements AdapterView.On
         Cursor cursor = db.query(FavoriteNewsDbHelper.TABLE_FAVORITE_NEWS, new String[]{FavoriteNewsDbHelper.COLUMN_ID,
                         FavoriteNewsDbHelper.COLUMN_TITLE, FavoriteNewsDbHelper.COLUMN_TEXT, FavoriteNewsDbHelper.COLUMN_DATE,
                         FavoriteNewsDbHelper.COLUMN_IMAGE, FavoriteNewsDbHelper.COLUMN_CATEGORY_NAME}, null, null, null, null,
-                        null, null);
+                null, null);
 
 
         News n = new News();
@@ -91,5 +96,6 @@ public class FavoriteNewsActivity extends BaseActivity implements AdapterView.On
         Intent intent = new Intent(this, NewsDetailActivity.class);
         intent.putExtra("news", n);
         startActivity(intent);
+        finish();
     }
 }
