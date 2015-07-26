@@ -12,4 +12,6 @@
     <dimen name="news_detail_comments_header_padding">10dp</dimen>
     <dimen name="comment_line_header_padding">10dp</dimen>
     <dimen name="comment_line_comment_padding">10dp</dimen>
+    <dimen name="news_line_detail_margin_left">5dp</dimen>
+    <dimen name="news_line_detail_margin">3dp</dimen>
 </resources>

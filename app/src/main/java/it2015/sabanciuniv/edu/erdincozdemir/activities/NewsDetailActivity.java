@@ -52,11 +52,6 @@ public class NewsDetailActivity extends BaseActivity implements GetImageTask.Get
         txtNewsCategory = (TextView) findViewById(R.id.txtNewsCategory);
         txtNewsDetail = (TextView) findViewById(R.id.txtNewsDetail);
         lstNewsComments = (ListView) findViewById(R.id.lstNewsComments);
-        /*btnPostComment = (Button) findViewById(R.id.btnPostComment);
-        btnPostComment.setOnClickListener(this);
-        btnAddToFavorites = (Button) findViewById(R.id.btnAddToFavorites);
-        btnAddToFavorites.setOnClickListener(this);*/
-
     }
 
     @Override
@@ -109,11 +104,6 @@ public class NewsDetailActivity extends BaseActivity implements GetImageTask.Get
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        /*if(v.getId() == R.id.btnPostComment) {
-
-        } else if(v.getId() == R.id.btnAddToFavorites) {
-
-        }*/
     }
 
     @Override

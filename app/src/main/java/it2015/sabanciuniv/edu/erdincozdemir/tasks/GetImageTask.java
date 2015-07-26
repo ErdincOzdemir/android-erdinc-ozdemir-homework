@@ -26,9 +26,6 @@ public class GetImageTask extends AsyncTask<String, Void, Bitmap> {
             bmp = BitmapFactory.decodeStream(imageURL.openStream());
 
         } catch (Exception e) {
-            // TODO: handle exception
-            Log.e("error", "Downloading Image Failed");
-
         }
 
         return bmp;

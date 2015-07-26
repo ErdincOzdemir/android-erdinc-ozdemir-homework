@@ -11,6 +11,7 @@ import java.util.List;
 
 import it2015.sabanciuniv.edu.erdincozdemir.R;
 import it2015.sabanciuniv.edu.erdincozdemir.activities.base.BaseActivity;
+import it2015.sabanciuniv.edu.erdincozdemir.adapters.NewsAdapter;
 import it2015.sabanciuniv.edu.erdincozdemir.objects.News;
 import it2015.sabanciuniv.edu.erdincozdemir.objects.NewsCategory;
 import it2015.sabanciuniv.edu.erdincozdemir.tasks.GetNewsByCategoryTask;
@@ -40,7 +41,7 @@ public class NewsByCategoryActivity extends BaseActivity implements GetNewsByCat
 
     @Override
     public void newsFetched(List<News> news) {
-        ArrayAdapter<News> adapter = new ArrayAdapter<News>(this, android.R.layout.simple_list_item_1, news);
+        NewsAdapter adapter = new NewsAdapter(this, news);
         lstNewsByCategory.setAdapter(adapter);
         lstNewsByCategory.setOnItemClickListener(this);
     }
